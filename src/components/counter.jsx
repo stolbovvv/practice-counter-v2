@@ -1,39 +1,33 @@
-import { connect } from "react-redux";
-import { actions } from "../actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../actions';
 
-import "./counter.css";
+import './counter.css';
 
-function mapStateToProps(state) {
-  return {
-    counter: state.value,
-  };
-}
+const Counter = () => {
+  const { counter } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
-const Counter = connect(
-  mapStateToProps,
-  actions
-)(({ counter, inc, dec, res, rnd }) => {
   return (
     <>
       <div className="counter">
         <div className="counter__counter">{counter}</div>
         <div className="counter__buttons">
-          <button className="counter__button" onClick={inc}>
+          <button className="counter__button" onClick={() => dispatch(actions.inc())}>
             INC
           </button>
-          <button className="counter__button" onClick={dec}>
+          <button className="counter__button" onClick={() => dispatch(actions.dec())}>
             DEC
           </button>
-          <button className="counter__button" onClick={rnd}>
+          <button className="counter__button" onClick={() => dispatch(actions.rnd())}>
             RND
           </button>
-          <button className="counter__button" onClick={res}>
+          <button className="counter__button" onClick={() => dispatch(actions.res())}>
             RES
           </button>
         </div>
       </div>
     </>
   );
-});
+};
 
 export { Counter };
